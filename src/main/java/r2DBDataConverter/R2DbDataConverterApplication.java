@@ -8,9 +8,10 @@ import org.springframework.data.r2dbc.repository.config.EnableR2dbcRepositories;
 import org.springframework.data.repository.RepositoryDefinition;
 
 
-@ComponentScan("r2DBDataConverter.orders.repository")
-@EnableR2dbcRepositories
-@SpringBootApplication
+//@ComponentScans("r2DBDataConverter.orders.repository" )
+//@ComponentScan(basePackages = {"r2DBDataConverter.orders.repository", , "r2DBDataConverter.customer.repository",})
+//@EnableR2dbcRepositories
+@SpringBootApplication(scanBasePackages={ "r2DBDataConverter.customer", "r2DBDataConverter.orders"} )
 public class R2DbDataConverterApplication {
 
 	public static void main(String[] args) {
@@ -18,3 +19,4 @@ public class R2DbDataConverterApplication {
 	}
 
 }
+//https://docs.spring.io/spring-data/r2dbc/docs/1.1.3.RELEASE/reference/html/#r2dbc.multiple-databases

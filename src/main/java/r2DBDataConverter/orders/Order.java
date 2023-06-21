@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import org.springframework.context.annotation.Profile;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.*;
 
@@ -11,6 +13,7 @@ import java.io.Serializable;
 
 //see: https://r2dbc.io/spec/0.8.2.RELEASE/spec/html/#datatypes.mapping.numeric
 //and https://www.postgresql.org/docs/10/datatype-numeric.html
+
 @Table(value = "ORDERS")
 @Data
 @Builder

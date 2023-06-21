@@ -18,8 +18,6 @@ import org.springframework.data.r2dbc.repository.config.EnableR2dbcRepositories;
 import org.springframework.r2dbc.connection.init.ResourceDatabasePopulator;
 import org.springframework.r2dbc.core.DatabaseClient;
 
-//import javax.annotation.PostConstruct;
-
 @Configuration
 @EnableR2dbcRepositories(entityOperationsRef = "ordersEntityTemplate")
 public class OrderConfig {
@@ -28,7 +26,7 @@ public class OrderConfig {
     @Bean()
     @Qualifier("ordersConnectionFactory")
     public ConnectionFactory ordersConnectionFactory() {
-        return ConnectionFactories.get("r2dbc:postgres://postgres:85221@192.168.0.199/orders");
+        return ConnectionFactories.get("r2dbc:postgres://postgres:85221@192.168.0.24:5434/userdb");
     }
 
     @Bean

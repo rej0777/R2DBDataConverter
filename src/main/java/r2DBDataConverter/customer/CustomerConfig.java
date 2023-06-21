@@ -17,7 +17,7 @@ import org.springframework.r2dbc.core.DatabaseClient;
 
 
 @Configuration
-@EnableR2dbcRepositories(entityOperationsRef = "customersEntityTemplate")
+@EnableR2dbcRepositories(entityOperationsRef = "customersEntityTemplate" )
 public class CustomerConfig {
 	
 	
