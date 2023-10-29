@@ -20,7 +20,7 @@ import org.springframework.r2dbc.core.DatabaseClient;
 
 @Configuration
 @EnableR2dbcRepositories(entityOperationsRef = "ordersEntityTemplate")
-public class OrderConfig {
+public class Table1Config {
 	
 	@Primary	
     @Bean()
@@ -53,4 +53,37 @@ public class OrderConfig {
         );
         databasePopulator.populate(ordersConnectionFactory()).subscribe();
     }*/
+    
+	/*
+	 
+	 CREATE TABLE IF NOT EXISTS public.table1a
+(
+    id integer NOT NULL DEFAULT nextval('table1a_id_seq'::regclass),
+    dtstamp timestamp without time zone,
+    str1 character varying(50) COLLATE pg_catalog."default" NOT NULL,
+    value1 double precision NOT NULL,
+    value2 bigint NOT NULL,
+    CONSTRAINT table1a_pkey PRIMARY KEY (id)
+)
+
+CREATE SEQUENCE table1a_id_seq
+START 10
+INCREMENT 10
+MINVALUE 10
+OWNED BY table1a.id;
+
+
+
+	 CREATE TABLE IF NOT EXISTS public.table1a
+(
+   id SERIAL,
+    dtstamp timestamp without time zone,
+    str1 character varying(50) COLLATE pg_catalog."default" NOT NULL,
+    value1 double precision NOT NULL,
+    value2 bigint NOT NULL   
+)
+
+	 
+	*/
+    
 }
