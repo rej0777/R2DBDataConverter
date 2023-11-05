@@ -1,7 +1,8 @@
-package r2DBDataConverter.orders;
+package r2DBDataConverter.dataSoursesConfig.sqlTable1A;
 
 
 
+import io.r2dbc.spi.Batch;
 import io.r2dbc.spi.ConnectionFactories;
 import io.r2dbc.spi.ConnectionFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -20,18 +21,18 @@ import org.springframework.r2dbc.core.DatabaseClient;
 
 @Configuration
 @EnableR2dbcRepositories(entityOperationsRef = "ordersEntityTemplate")
-public class Table1Config {
+public class Table1AConfig {
 	
 	@Primary	
     @Bean()
-    @Qualifier("ordersConnectionFactory")
+    @Qualifier("table1AFactory")
     public ConnectionFactory ordersConnectionFactory() {
         return ConnectionFactories.get("r2dbc:postgres://postgres:85221@192.168.0.24:5434/userdb");
     }
 
     @Bean
-    public R2dbcEntityOperations ordersEntityTemplate(@Qualifier("ordersConnectionFactory") ConnectionFactory connectionFactory) {
-
+    public R2dbcEntityOperations ordersEntityTemplate(@Qualifier("table1AFactory") ConnectionFactory connectionFactory) {
+    	
         DefaultReactiveDataAccessStrategy strategy = new DefaultReactiveDataAccessStrategy(PostgresDialect.INSTANCE);
         DatabaseClient databaseClient = DatabaseClient.builder()
                 .connectionFactory(connectionFactory)

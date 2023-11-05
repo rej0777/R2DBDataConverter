@@ -1,4 +1,4 @@
-package r2DBDataConverter.orders;
+package r2DBDataConverter.dataSoursesConfig.sqlTable1A;
 
 import java.util.Iterator;
 import java.util.stream.Stream;

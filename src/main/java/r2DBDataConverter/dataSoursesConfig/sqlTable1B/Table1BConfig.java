@@ -1,4 +1,4 @@
-package r2DBDataConverter.customer;
+package r2DBDataConverter.dataSoursesConfig.sqlTable1B;
 
 
 import io.r2dbc.spi.ConnectionFactories;
@@ -18,7 +18,7 @@ import org.springframework.r2dbc.core.DatabaseClient;
 
 @Configuration
 @EnableR2dbcRepositories(entityOperationsRef = "customersEntityTemplate" )
-public class CustomerConfig {
+public class Table1BConfig {
 	
 	
     @Bean
@@ -51,4 +51,31 @@ public class CustomerConfig {
         databasePopulator.populate(customersConnectionFactory()).subscribe();
     } */ 
 
+    
+	/*
+	
+	SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[Table1B](
+	[ID] [int] IDENTITY(1,1) NOT NULL,
+	[DATE_TIME] [datetime2](6) NULL,
+	[FIRST_NAME] [varchar](255) NOT NULL,
+    [PRICE] [float] NULL,
+    [VALUE2] [bigint] NOT NULL,
+    [SEASON] [char](1) NULL,
+    
+PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+	
+	*/
+    
 }

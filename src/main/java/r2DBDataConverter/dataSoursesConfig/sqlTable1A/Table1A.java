@@ -1,4 +1,4 @@
-package r2DBDataConverter.orders;
+package r2DBDataConverter.dataSoursesConfig.sqlTable1A;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -33,26 +33,19 @@ public class Table1A implements Serializable {
 //	@SequenceGenerator(name = "SequenceIdGenerator", sequenceName = "table1a_id_seq", allocationSize = 10 )
 //	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="SequenceIdGenerator")
 	//@GeneratedValue(strategy = GenerationType.IDENTITY)
-	 @Column(value = "ID"  )	
+	 @Column(value = "ID")	
 	 private Long id;
-	
 
 	@Column(value = "DTSTAMP")
 	private LocalDateTime dateTime;	
-
 	
 	@Column(value =  "STR1")
 	private String str1;	
 	
-
 	@Column(value = "VALUE1")	
 	protected Double value1;	
 	
-
 	@Column(value =  "VALUE2")
 	protected Long value2;	
-	
-	
-	
 	
 }

@@ -1,56 +1,25 @@
-package r2DBDataConverter.orders;
+package r2DBDataConverter.dataSoursesConfig.sqlTable1A;
 
-
-import lombok.RequiredArgsConstructor;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.reactive.function.server.ServerRequest;
-import org.springframework.web.reactive.function.server.ServerResponse;
-
-import reactor.core.Disposable;
-import reactor.core.publisher.ConnectableFlux;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
-import reactor.core.publisher.ParallelFlux;
-import reactor.core.scheduler.Scheduler;
 import reactor.core.scheduler.Schedulers;
-import reactor.util.function.Tuple2;
-import reactor.util.function.Tuples;
-
-
 import static org.springframework.http.ResponseEntity.ok;
 
-import java.util.List;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.concurrent.atomic.LongAccumulator;
-import java.util.function.Consumer;
-import java.util.function.Function;
-import java.util.stream.Stream;
-import java.time.Duration;
-import java.time.Instant;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Date;
-
-import org.reactivestreams.Publisher;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.context.annotation.Import;
-import org.springframework.context.annotation.Profile;
-import org.springframework.core.convert.ConversionService;
 
 @RestController
-@RequestMapping("table1")
-//@RequiredArgsConstructor
-//@Import(value = { OrderRepository.class })
+@RequestMapping("table1A")
 public class Table1AController {
 
 	//    @Autowired
@@ -58,7 +27,7 @@ public class Table1AController {
   
 
 
-    	public Table1AController( Table1ARepository tr) {//@Qualifier("OrderRepository")
+    	public Table1AController( Table1ARepository tr) {
 		super();
 		this.repository = tr;
 	}
@@ -73,8 +42,8 @@ public class Table1AController {
 	 {    "str1": "abc",   "value1":1000,   "value2":2000 }*/
 	
     @PostMapping("save1")
-    @ResponseStatus(value = HttpStatus.CREATED)//HttpStatus.CREATED)
-    public Mono<Table1A> create(@RequestBody Table1A tb1){ //  
+    @ResponseStatus(value = HttpStatus.CREATED)
+    public Mono<Table1A> create(@RequestBody Table1A tb1){
         return createUser(tb1); 
     }
 
@@ -87,19 +56,20 @@ public class Table1AController {
     @GetMapping("generate")
     @ResponseStatus(value = HttpStatus.CREATED)
 	public   HttpStatus generateFLUX2() {
-  	   	
+    	final long start = System.nanoTime();
+    	    	
     	generateFLUX().map(t -> (Table1A)t )
     	.buffer(1000)
     	.log()
-    	.flatMap(t ->  repository.saveAll(  t ) ).subscribe();
+    	.flatMap(t ->  repository.saveAll(  t ) )
+    	.doFinally(endType -> System.out.println("Time taken : " + TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - start) + " milliseconds."))
+    	.subscribe();
     	
     	System.out.println("zapisane" );
     	return HttpStatus.OK;
     }
     
-    
-   
-      
+
     
     AtomicInteger i = new AtomicInteger(1); 
 	public  Flux<Object> generateFLUX() {	
@@ -118,8 +88,8 @@ public class Table1AController {
 			return state;			  
 
 		  })
-			.take(4000)	
+			.take(20000)	
 			.subscribeOn(Schedulers.boundedElastic());
 	}
-
+	
 }
